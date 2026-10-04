@@ -1,0 +1,28 @@
+# Operator commands for `mtk finetune`, mounted by the toolkit's command host
+# (modal-toolkit/toolkit/pkg_commands.py). Inert data: the server never reads it.
+# Kind "modal" runs `uv run modal <argv...> <passthrough args>`. These are
+# artifact-factory jobs (train/eval/gguf), not a long-lived server.
+
+[[command]]
+name = "train"
+summary = "run a LoRA SFT training job"
+kind = "modal"
+argv = ["run", "server/train_modal.py"]
+timeout = 7200
+passthrough = true
+
+[[command]]
+name = "eval"
+summary = "run the honesty eval gate on a trained adapter"
+kind = "modal"
+argv = ["run", "eval/run_eval.py"]
+timeout = 7200
+passthrough = true
+
+[[command]]
+name = "gguf"
+summary = "merge the adapter and export GGUF for the inference server"
+kind = "modal"
+argv = ["run", "server/gguf_pipeline_modal.py"]
+timeout = 7200
+passthrough = true
