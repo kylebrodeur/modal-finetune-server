@@ -1,0 +1,47 @@
+{
+  "$schema": "./profile.schema.json",
+  "name": "gemma4-lora-sft",
+  "description": "Verified LoRA SFT profile for Gemma-4 multimodal small models (E4B-it family). Encodes the PEFT fix for Gemma4ClippableLinear (vision/audio towers) so adapters train only the language stack.",
+  "source": "Battle-tested in three published adapters (lora, lora-v2, lora-v3-qat). Regex scope from PEFT maintainer: https://github.com/huggingface/peft/issues/3129",
+  "base_model": "google/gemma-4-E4B-it",
+  "chat_template": "auto",
+  "compute": {
+    "gpu": "A10G",
+    "timeout_seconds": 3600,
+    "dtype": "bfloat16"
+  },
+  "lora": {
+    "r": 4,
+    "lora_alpha": 8,
+    "lora_dropout": 0.05,
+    "bias": "none",
+    "task_type": "CAUSAL_LM",
+    "target_modules": ".*\\.language_model\\..*\\.(q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj)",
+    "exclude_modules": [
+      ".*vision_tower.*",
+      ".*audio_tower.*",
+      ".*multi_modal_projector.*"
+    ]
+  },
+  "sft": {
+    "num_train_epochs": 1,
+    "per_device_train_batch_size": 2,
+    "gradient_accumulation_steps": 4,
+    "learning_rate": 2.0e-4,
+    "logging_steps": 10,
+    "bf16": true,
+    "max_length": 1536,
+    "dataset_text_field": "text",
+    "report_to": []
+  },
+  "dataset": {
+    "format": "openai-chat-jsonl",
+    "train_key": "train",
+    "eval_key": "eval"
+  },
+  "publish_targets": {
+    "hf_hub": true,
+    "modal": true,
+    "ollama": "optional"
+  }
+}
