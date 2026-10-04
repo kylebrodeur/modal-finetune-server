@@ -1,0 +1,65 @@
+{
+  "$schema": "./profile.schema.json",
+  "oneOf": [
+    {
+      "required": ["name", "base_model", "lora", "sft"]
+    }
+  ],
+  "properties": {
+    "name": {"type": "string"},
+    "description": {"type": "string"},
+    "source": {"type": "string"},
+    "base_model": {"type": "string"},
+    "chat_template": {"type": "string"},
+    "compute": {
+      "type": "object",
+      "properties": {
+        "gpu": {"type": "string"},
+        "timeout_seconds": {"type": "integer"},
+        "dtype": {"type": "string"}
+      }
+    },
+    "lora": {
+      "type": "object",
+      "properties": {
+        "r": {"type": "integer"},
+        "lora_alpha": {"type": "integer"},
+        "lora_dropout": {"type": "number"},
+        "bias": {"type": "string"},
+        "task_type": {"type": "string"},
+        "target_modules": {"type": "string"},
+        "exclude_modules": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "sft": {
+      "type": "object",
+      "properties": {
+        "num_train_epochs": {"type": "integer"},
+        "per_device_train_batch_size": {"type": "integer"},
+        "gradient_accumulation_steps": {"type": "integer"},
+        "learning_rate": {"type": "number"},
+        "logging_steps": {"type": "integer"},
+        "bf16": {"type": "boolean"},
+        "max_length": {"type": "integer"},
+        "dataset_text_field": {"type": "string"},
+        "report_to": {"type": "array"}
+      }
+    },
+    "dataset": {
+      "type": "object",
+      "properties": {
+        "format": {"type": "string"},
+        "train_key": {"type": "string"},
+        "eval_key": {"type": "string"}
+      }
+    },
+    "publish_targets": {
+      "type": "object",
+      "properties": {
+        "hf_hub": {"type": "boolean"},
+        "modal": {"type": "boolean"},
+        "ollama": {"type": "string"}
+      }
+    }
+  }
+}
