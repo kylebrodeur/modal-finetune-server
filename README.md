@@ -153,6 +153,17 @@ def observe(payload): print(payload)
 
 The tag set changes only in this package's releases.
 
+## Operator commands (`mtk`)
+
+This package ships an `mtk finetune` command group in
+`server/mtk-commands.toml`; [modal-toolkit](https://github.com/kylebrodeur/modal-toolkit)
+mounts it when this repo is present in the workspace. Each command runs a
+Modal artifact-factory job:
+
+- `mtk finetune train` — run a LoRA SFT training job (`modal run server/train_modal.py`).
+- `mtk finetune eval` — run the honesty eval gate on a trained adapter.
+- `mtk finetune gguf` — merge the adapter and export GGUF for the inference server.
+
 ## Part of the Modal Toolkit
 
 Seven standalone Modal utilities from the same author, each extractable and deployable on its own.
