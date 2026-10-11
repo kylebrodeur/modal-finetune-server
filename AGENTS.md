@@ -1,4 +1,4 @@
-# AGENTS.md — modal-finetune-server
+# AGENTS.md - modal-finetune-server
 
 Agent instructions for THIS repo (v1.2.0 on `main`). The family-wide
 rules live in the system workspace's AGENTS.md

@@ -160,9 +160,9 @@ This package ships an `mtk finetune` command group in
 mounts it when this repo is present in the workspace. Each command runs a
 Modal artifact-factory job:
 
-- `mtk finetune train` — run a LoRA SFT training job (`modal run server/train_modal.py`).
-- `mtk finetune eval` — run the honesty eval gate on a trained adapter.
-- `mtk finetune gguf` — merge the adapter and export GGUF for the inference server.
+- `mtk finetune train` - run a LoRA SFT training job (`modal run server/train_modal.py`).
+- `mtk finetune eval` - run the honesty eval gate on a trained adapter.
+- `mtk finetune gguf` - merge the adapter and export GGUF for the inference server.
 
 ## Part of the Modal Toolkit
 
