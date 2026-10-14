@@ -1,6 +1,6 @@
 [project]
 name = "modal-finetune-server"
-version = "1.3.0"
+version = "1.3.1"
 description = "Generic LoRA SFT + GGUF + serve pipeline on Modal, with profile-driven config and honest eval gates."
 requires-python = ">=3.11,<3.13"
 dependencies = [
