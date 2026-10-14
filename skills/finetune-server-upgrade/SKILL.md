@@ -1,8 +1,6 @@
 ---
 name: finetune-server-upgrade
-description: Upgrade + deploy-boundary discipline for the modal-finetune-server checkout: tag upgrades, artifact-factory posture (serve lives in inference), pipeline-stage hooks.
-
-Use when upgrading/redeploying this repo or before modal commands inside this checkout.
+description: Upgrade + deploy-boundary discipline for the modal-finetune-server checkout: tag upgrades, artifact-factory posture (serve lives in inference), pipeline-stage hooks. Use when upgrading/redeploying this repo or before modal commands inside this checkout.
 license: Apache-2.0
 metadata:
   author: kylebrodeur
@@ -37,3 +35,19 @@ Finetune-specific cautions:
   register here.
 - Publishing artifacts lands on HF Hub under the lane's namespace:
   confirm the target repo/namespace before any push.
+
+## Operating with mtk
+
+Source of truth: the [quickstart](../../docs/quickstart.md) and
+[how-to](../../docs/how-to.md) in this repo, and the toolkit's `mtk` skill.
+
+```bash
+mtk init <project-id>      # from the project directory; checks prerequisites and the account
+mtk pull finetune             # clone this repo into the repos root
+mtk deploy finetune           # preflight the overlay, confirm secrets, run deploys/finetune/deploy.sh
+mtk doctor --pkg finetune     # health and drift
+```
+
+- Overlay: `deploys/finetune/deploy.json` must name the app `<project>-finetune`.
+- Secrets this package declares: modal-finetune-secrets and HF_TOKEN (you supply). `mtk deploy` asks before creating any.
+- Never run `modal deploy` inside this checkout.
