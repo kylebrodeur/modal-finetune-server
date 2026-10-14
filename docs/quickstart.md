@@ -17,19 +17,27 @@ cd tune-lab
 ## 2. Pull the package
 
 ```bash
-mtk pull finetune
+mtk pull finetune --tag <current-release>
 ```
+
+The package is vendored into `vendor/finetune-server/`: a git checkout pinned
+to the exact release tag, read-only and drift-guarded.
 
 ## 3. Write the overlay
 
-`deploys/finetune/deploy.json` names the app `<project>-finetune`:
+`deploys/finetune-server/deploy.json` names the app `<project>-finetune`:
 
 ```json
-{ "pkg": "finetune", "app_name": "tune-lab-finetune" }
+{
+  "pkg": "finetune",
+  "app_name": "tune-lab-finetune",
+  "upstream": { "repo": "modal-finetune-server", "tag": "<current-release>" }
+}
 ```
 
 This package runs jobs rather than a long-lived server. Its `deploy.sh` launches
-each job from the pulled checkout by path.
+each job from the VENDORED copy under `vendor/finetune-server/`: never a live
+checkout.
 
 ## 4. Secrets and jobs
 
